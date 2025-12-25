@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Minecraft server hosting with high-performance hardware, 24/7 support, and affordable pricing. Get your lag-free server today!">
+    <meta name="keywords" content="Minecraft hosting, game server, VPS, SMP hosting, modded Minecraft, server hosting">
+    <meta name="author" content="Kexson Host">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Kexson Host - Premium Minecraft Server Hosting">
+    <meta property="og:description" content="Experience lag-free Minecraft gameplay with our high-performance servers. Instant setup, 24/7 support, and competitive pricing.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kexsonhost.xyz">
+    <meta property="og:image" content="https://kexsonhost.xyz/images/social-preview.jpg">
+    
+    <title>Kexson Host - Premium Minecraft Hosting | High Performance Servers</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Preload important resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0066cc',
+                        'primary-light': '#0099ff',
+                        'dark': '#0a0a0a',
+                        'darker': '#050505',
+                        'success': '#10b981',
+                        'warning': '#f59e0b',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .text-shadow-sm {
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            }
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .rotate-180 {
+                transform: rotate(180deg);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .animate-pulse-slow {
+                animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            .animate-bounce-slow {
+                animation: bounce-slow 2s infinite;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0066cc;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0099ff;
+        }
+        
+        /* Custom selection color */
+        ::selection {
+            background: rgba(0, 153, 255, 0.3);
+            color: white;
+        }
+        
+        /* Smooth transitions */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Loading animation */
+        @keyframes loading {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-spinner {
+            animation: loading 1s linear infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body class="bg-dark text-white font-sans antialiased">
+    <!-- Loading screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-darker z-50 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="loading-spinner w-16 h-16 border-4 border-primary-light border-t-transparent rounded-full mb-4"></div>
+        <div class="text-xl font-semibold animate-pulse-slow">Loading Kexson Host...</div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="bg-darker border-b-2 border-primary sticky top-0 z-40 backdrop-blur-sm bg-opacity-90">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#home" class="text-3xl font-bold flex items-center">
+                        <span class="text-primary-light">Zen</span><span>Cloud</span>
+                        <div class="h-1 w-12 bg-primary mt-1 rounded-full ml-2"></div>
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" aria-label="Toggle menu" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                    <a href="#home" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">Home</a>
+                    <a href="#features" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">Features</a>
+                    <a href="#plans" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">Plans</a>
+                    <a href="#testimonials" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">Testimonials</a>
+                    <a href="https://www.kexsonhost.xyz/about" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">About</a>
+                    <a href="#contact" class="text-white hover:text-primary-light transition-colors duration-300 font-medium">Contact</a>
+                    
+                    <div class="ml-4">
+                        <a href="https://panel.kexsonhost.xyz" class="bg-primary hover:bg-primary-light text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Login
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="text-white hover:text-primary-light transition-colors duration-300 py-2">Home</a>
+                    <a href="#features" class="text-white hover:text-primary-light transition-colors duration-300 py-2">Features</a>
+                    <a href="#plans" class="text-white hover:text-primary-light transition-colors duration-300 py-2">Plans</a>
+                    <a href="#testimonials" class="text-white hover:text-primary-light transition-colors duration-300 py-2">Testimonials</a>
+                    <a href="https://www.kexsonhost.xyz/about" class="text-white hover:text-primary-light transition-colors duration-300 py-2">About</a>
+                    <a href="#contact" class="text-white hover:text-primary-light transition-colors duration-300 py-2">Contact</a>
+                    <a href="https://panel.kexsonhost.xyz" class="bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center mt-2">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background with overlay -->
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1607513746994-51f730a44832?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center bg-no-repeat"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+        
+        <!-- Animated blocks (Minecraft style) -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="cube animate-float opacity-20 w-16 h-16 bg-primary absolute top-1/4 left-1/4"></div>
+            <div class="cube animate-float opacity-20 w-24 h-24 bg-primary-light absolute top-3/4 left-3/4" style="animation-delay: 1s;"></div>
+            <div class="cube animate-float opacity-20 w-20 h-20 bg-primary absolute top-1/2 left-1/6" style="animation-delay: 2s;"></div>
+            <div class="cube animate-float opacity-20 w-12 h-12 bg-primary-light absolute top-1/3 right-1/4" style="animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 z-10 text-center">
+            <div class="max-w-4xl mx-auto">
+                <!-- Trust indicators -->
+                <div class="flex justify-center items-center mb-6">
+                    <div class="flex items-center bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 border border-primary/20">
+                        <div class="flex -space-x-2 mr-2">
+                            <img class="w-6 h-6 rounded-full border-2 border-darker" src="https://randomuser.me/api/portraits/women/12.jpg" alt="User">
+                            <img class="w-6 h-6 rounded-full border-2 border-darker" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                            <img class="w-6 h-6 rounded-full border-2 border-darker" src="https://randomuser.me/api/portraits/women/45.jpg" alt="User">
+                        </div>
+                        <span class="text-sm text-gray-300">Trusted by 10,000+ players</span>
+                        <div class="flex items-center ml-4 pl-4 border-l border-primary/20">
+                            <div class="flex items-center mr-1">
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                            <span class="text-sm text-gray-300">4.9/5</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Premium</span> 
+                    <span class="text-white text-shadow">Minecraft Hosting</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto leading-relaxed">Experience lag-free Minecraft gameplay with our high-performance servers. Instant setup, 24/7 support, and competitive pricing with a 99.9% uptime guarantee.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#plans" class="bg-primary hover:bg-primary-light text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg flex items-center justify-center">
+                        <i class="fas fa-server mr-2"></i> View Plans
+                    </a>
+                    <a href="#features" class="bg-transparent border-2 border-primary text-primary-light hover:bg-primary/10 font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 text-lg flex items-center justify-center">
+                        <i class="fas fa-info-circle mr-2"></i> Learn More
+                    </a>
+                </div>
+                
+                <!-- Server status indicator -->
+                <div class="mt-10 bg-black/30 backdrop-blur-sm rounded-lg p-4 inline-block border border-primary/20">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-success mr-2 animate-pulse"></div>
+                        <span class="text-sm font-medium">All systems operational</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll down indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+            <a href="#features" class="text-white/70 hover:text-white transition-colors duration-300" aria-label="Scroll down">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-gradient-to-r from-darker to-dark py-16 border-t border-b border-primary/20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="counter-item">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-light mb-2 flex items-center justify-center">
+                        <span class="counter" data-target="99.9">0</span><span>%</span>
+                    </div>
+                    <p class="text-gray-400 uppercase text-sm tracking-wider">Uptime</p>
+                </div>
+                <div class="counter-item">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-light mb-2 counter" data-target="8000">0</div>
+                    <p class="text-gray-400 uppercase text-sm tracking-wider">Online Servers</p>
+                </div>
+                <div class="counter-item">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-light mb-2 counter" data-target="10000">0</div>
+                    <p class="text-gray-400 uppercase text-sm tracking-wider">Servers Hosted</p>
+                </div>
+                <div class="counter-item">
+                    <div class="text-4xl md:text-5xl font-bold text-primary-light mb-2 flex items-center justify-center">
+                        <span class="counter" data-target="24">0</span><span>/7</span>
+                    </div>
+                    <p class="text-gray-400 uppercase text-sm tracking-wider">Hour Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Why Choose</span> 
+                    <span class="text-white">Kexson Host?</span>
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">We provide the best Minecraft hosting experience with cutting-edge technology and exceptional support.</p>
+                <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-server text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">High Performance</h3>
+                    <p class="text-gray-400">Our servers are equipped with high-frequency CPUs, NVMe SSD storage, and optimized networks to ensure smooth gameplay without lag or delays.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">Ryzen 9 7950X</span>
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full ml-2">DDR5 RAM</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-bolt text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">Instant Setup</h3>
+                    <p class="text-gray-400">Get your Minecraft server up and running in under 60 seconds with our automated setup process. No waiting, no complicated configurations.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">60s Setup</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-headset text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">24/7 Support</h3>
+                    <p class="text-gray-400">Our dedicated support team is available around the clock via live chat, email, and Discord to assist you with any issues or questions.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">Live Chat</span>
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full ml-2">Discord</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-shield-alt text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">DDoS Protection</h3>
+                    <p class="text-gray-400">Advanced enterprise-grade protection against DDoS attacks to keep your server online at all times. Automatic mitigation with zero downtime.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">10Gbps+ Protection</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-puzzle-piece text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">One-Click Modpacks</h3>
+                    <p class="text-gray-400">Install popular modpacks with just one click and customize your gameplay experience. Full FTP access for complete control.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">100+ Modpacks</span>
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full ml-2">FTP Access</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-dark p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20 group">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all duration-300">
+                        <i class="fas fa-tags text-2xl text-primary-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-primary-light">Affordable Plans</h3>
+                    <p class="text-gray-400">Competitive pricing with plans starting from just ₹10 for a trial period. No hidden fees and a 7-day money-back guarantee.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-primary/10 text-primary-light text-xs px-3 py-1 rounded-full">7-Day Guarantee</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature comparison -->
+            <div class="mt-20 bg-dark rounded-xl border border-primary/20 p-8">
+                <h3 class="text-2xl font-bold mb-6 text-center text-primary-light">Feature Comparison</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-primary/20">
+                                <th class="text-left py-4 px-4">Feature</th>
+                                <th class="text-center py-4 px-4">Kexson Host</th>
+                                <th class="text-center py-4 px-4">Other Providers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-primary/10">
+                                <td class="py-4 px-4">Hardware</td>
+                                <td class="text-center py-4 px-4 text-success font-medium">Ryzen 9 7950X</td>
+                                <td class="text-center py-4 px-4 text-gray-400">Older CPUs</td>
+                            </tr>
+                            <tr class="border-b border-primary/10">
+                                <td class="py-4 px-4">Storage</td>
+                                <td class="text-center py-4 px-4 text-success font-medium">NVMe SSD</td>
+                                <td class="text-center py-4 px-4 text-gray-400">Regular SSD</td>
+                            </tr>
+                            <tr class="border-b border-primary/10">
+                                <td class="py-4 px-4">Setup Time</td>
+                                <td class="text-center py-4 px-4 text-success font-medium">Instant</td>
+                                <td class="text-center py-4 px-4 text-gray-400">Hours/Days</td>
+                            </tr>
+                            <tr class="border-b border-primary/10">
+                                <td class="py-4 px-4">Support</td>
+                                <td class="text-center py-4 px-4 text-success font-medium">24/7 Live Chat</td>
+                                <td class="text-center py-4 px-4 text-gray-400">Email Only</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4">DDoS Protection</td>
+                                <td class="text-center py-4 px-4 text-success font-medium">Enterprise-grade</td>
+                                <td class="text-center py-4 px-4 text-gray-400">Basic or None</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">What Our</span> 
+                    <span class="text-white">Players Say</span>
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">Don't just take our word for it - hear from our satisfied customers.</p>
+                <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-darker p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Sharma" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Rahul Sharma</h4>
+                            <div class="flex items-center mt-1">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-400 ml-2">2 weeks ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"I've tried several Minecraft hosts before, but Kexson Host is by far the best. The performance is incredible, and their support team helped me set up my modpack in minutes. Highly recommended!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-darker p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Patel" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Priya Patel</h4>
+                            <div class="flex items-center mt-1">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-400 ml-2">1 month ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"The Diamond plan is perfect for our SMP server with 15 players. Zero lag even with complex redstone builds. The automatic backups saved us when a plugin corrupted our world."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-darker p-8 rounded-xl border border-primary/20 hover:border-primary transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Arjun Mehta" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Arjun Mehta</h4>
+                            <div class="flex items-center mt-1">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-400 ml-2">3 months ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"As a server admin for a large community, I appreciate the reliability and performance of Kexson Host. The control panel is intuitive, and their Discord support is always helpful."</p>
+                </div>
+            </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="py-24 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Our Hosting</span> 
+                    <span class="text-white">Plans</span>
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">Choose the perfect plan for your Minecraft adventure. All plans include our premium features and 24/7 support.</p>
+                <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+
+
+            <!-- Billing toggle -->
+            <div class="flex justify-center mb-12">
+                <div class="bg-dark rounded-full p-1 inline-flex border border-primary/20">
+                    <button class="px-6 py-2 rounded-full font-medium bg-primary text-white">Monthly</button>
+                    <button class="px-6 py-2 rounded-full font-medium text-gray-400 hover:text-white">Yearly <span class="text-xs bg-success/20 text-success px-2 py-1 rounded-full ml-1">Save 20%</span></button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Trial Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">TRIAL</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">₹10</span>
+                                <span class="text-gray-400 ml-2">/ 24 hrs</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">Perfect for testing our service</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>2GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Ryzen 9 7950X CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>5GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>1 Server Slot</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Basic Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Try Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stone Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">STONE</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">Not Defined</span>
+                                <span class="text-gray-400 ml-2">/ month</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">Great for small servers</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>2GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Ryzen 9 7950X CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>5GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>1 Server Slot</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Priority Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Iron Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">IRON</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">Not Defined</span>
+                                <span class="text-gray-400 ml-2">/ month</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">Popular choice for SMP</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>4GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Ryzen 9 7950X CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>10GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>1 Server Slot</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Priority Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Gold Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">GOLD</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">₹940</span>
+                                <span class="text-gray-400 ml-2">/ month</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">For growing communities</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>8GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>800% CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>15GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>1 Server Slots</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Premium Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Diamond Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">DIAMOND</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">Not Defined</span>
+                                <span class="text-gray-400 ml-2">/ month</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">For large communities</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>12GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Ryzen 9 7950X CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>20GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>3 Server Slots</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Premium Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Netherite Plan -->
+                <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                    <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                        <div class="bg-dark p-6 text-center">
+                            <h3 class="text-2xl font-bold text-primary-light mb-2">NETHERITE</h3>
+                            <div class="flex justify-center items-end">
+                                <span class="text-4xl font-bold">Not Defined</span>
+                                <span class="text-gray-400 ml-2">/ month</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mt-2">For professional networks</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>16GB DDR5 RAM</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>Ryzen 9 7950X CPU</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>30GB NVMe SSD</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>5 Server Slots</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary-light mr-3"></i>
+                                <span>VIP Support</span>
+                            </li>
+                        </ul>
+                        <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+<!-- Add this section after the Minecraft Plans section (around line 1000) -->
+
+<!-- Bot Hosting Plans Section -->
+<section id="bot-plans" class="py-24 bg-dark">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Bot</span> 
+                <span class="text-white">Hosting</span>
+            </h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">Reliable hosting for your Discord bots with 24/7 uptime and low latency.</p>
+            <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Basic Bot Plan -->
+            <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                    <div class="bg-dark p-6 text-center">
+                        <h3 class="text-2xl font-bold text-primary-light mb-2">BASIC</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-4xl font-bold">₹10</span>
+                            <span class="text-gray-400 ml-2">/ month</span>
+                        </div>
+                        <div class="text-sm text-gray-300 mt-2">Perfect for small bots</div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>128MB RAM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>400MB Disk</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>0.1 CPU Core</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>24/7 Uptime</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>Basic Support</span>
+                        </li>
+                    </ul>
+                    <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- Standard Bot Plan -->
+            <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                    <div class="bg-dark p-6 text-center">
+                        <h3 class="text-2xl font-bold text-primary-light mb-2">STANDARD</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-4xl font-bold">₹20</span>
+                            <span class="text-gray-400 ml-2">/ month</span>
+                        </div>
+                        <div class="text-sm text-gray-300 mt-2">For growing bots</div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>256MB RAM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>800MB Disk</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>0.1 CPU Core</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>24/7 Uptime</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>Priority Support</span>
+                        </li>
+                    </ul>
+                    <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- Advanced Bot Plan -->
+            <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                    <div class="bg-dark p-6 text-center">
+                        <h3 class="text-2xl font-bold text-primary-light mb-2">ADVANCED</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-4xl font-bold">₹40</span>
+                            <span class="text-gray-400 ml-2">/ month</span>
+                        </div>
+                        <div class="text-sm text-gray-300 mt-2">For medium bots</div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>512MB RAM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>1.6GB Disk</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>0.1 CPU Cores</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>24/7 Uptime</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>Priority Support</span>
+                        </li>
+                    </ul>
+                    <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- Premium Bot Plan -->
+            <div class="plan-card bg-dark rounded-2xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 border border-primary/20 hover:border-primary/50">
+                <div class="p-1 bg-gradient-to-r from-primary to-primary-light">
+                    <div class="bg-dark p-6 text-center">
+                        <h3 class="text-2xl font-bold text-primary-light mb-2">PREMIUM</h3>
+                        <div class="flex justify-center items-end">
+                            <span class="text-4xl font-bold">₹80</span>
+                            <span class="text-gray-400 ml-2">/ month</span>
+                        </div>
+                        <div class="text-sm text-gray-300 mt-2">For large bots</div>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>1GB RAM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>3.2GB Disk</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>0.1 CPU Cores</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>24/7 Uptime</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-light mr-3"></i>
+                            <span>Premium Support</span>
+                        </li>
+                    </ul>
+                    <a href="https://discord.gg/puuE5UJrtp" class="block w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 text-center">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enterprise CTA -->
+        <div class="mt-16 bg-gradient-to-r from-primary to-primary-light rounded-2xl p-1">
+            <div class="bg-darker rounded-xl p-8 text-center">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">Need custom bot hosting?</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-6">We offer custom solutions for large bots with dedicated resources and premium support.</p>
+                <a href="#contact" class="inline-block bg-primary hover:bg-primary-light text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                    Contact Our Team
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+            
+            <!-- Enterprise CTA -->
+            <div class="mt-16 bg-gradient-to-r from-primary to-primary-light rounded-2xl p-1">
+                <div class="bg-darker rounded-xl p-8 text-center">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Need something bigger?</h3>
+                    <p class="text-gray-400 max-w-2xl mx-auto mb-6">We offer custom enterprise solutions for large networks and communities with dedicated resources and premium support.</p>
+                    <a href="#contact" class="inline-block bg-primary hover:bg-primary-light text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        Contact Our Sales Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Frequently Asked</span> 
+                    <span class="text-white">Questions</span>
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">Find answers to common questions about our Minecraft hosting services.</p>
+                <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">How do I get started with Kexson Host?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">Getting started is easy! Simply choose a plan that suits your needs, complete the checkout process, and your Minecraft server will be set up instantly. You'll receive login details to your server control panel where you can manage your server, install mods, and invite players.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">Can I upgrade my plan later?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">Yes, you can upgrade your plan at any time! Your server data will be automatically transferred to your new plan with minimal downtime. Simply go to your account dashboard and select the upgrade option. Downgrades are also possible but may require manual adjustment of your server resources.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">What payment methods do you accept?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">We accept various payment methods including credit/debit cards (Visa, Mastercard, American Express), UPI (Google Pay, PhonePe, Paytm), net banking, and popular digital wallets. All payments are processed securely through our payment gateway with 256-bit SSL encryption.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">Can I install custom mods and plugins?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">All our plans support custom mods and plugins. You have full FTP access to your server files, allowing you to install any compatible mods or plugins you want. We also offer one-click installations for popular modpacks like FTB, Tekkit, and Pixelmon. Our support team can assist with installation if needed.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">How many players can join my server?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">The number of players your server can handle depends on the plan you choose and the type of gameplay. Higher-tier plans with more RAM and CPU can accommodate more players. As a general guideline, each GB of RAM can support approximately 10-20 players for vanilla Minecraft, or 5-10 players for heavily modded servers.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="faq-item bg-darker rounded-xl overflow-hidden border border-primary/20">
+                        <button class="faq-question w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                            <span class="text-xl font-semibold">Do you offer a money-back guarantee?</span>
+                            <i class="fas fa-chevron-down text-primary-light transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-6 hidden">
+                            <p class="text-gray-400">Yes! We offer a 7-day money-back guarantee on all our plans. If you're not satisfied with our service within the first 7 days, simply contact our support team for a full refund. This doesn't apply to domain names or other add-ons with third-party costs.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional support CTA -->
+                <div class="mt-12 text-center">
+                    <p class="text-gray-400 mb-6">Still have questions? Our support team is happy to help!</p>
+                    <a href="#contact" class="inline-block bg-primary hover:bg-primary-light text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary to-primary-light text-gradient">Get in</span> 
+                    <span class="text-white">Touch</span>
+                </h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">Have questions or need assistance? Our support team is here to help you 24/7.</p>
+                <div class="h-1 w-24 bg-primary mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div class="bg-dark p-8 rounded-xl border border-primary/20">
+                    <h3 class="text-2xl font-bold mb-6 text-primary-light">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-primary-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Email</h4>
+                                <p class="text-gray-400">support@kexsonhost.xyz</p>
+                                <p class="text-gray-400">sales@kexsonhost.xyz</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-headset text-primary-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Live Chat</h4>
+                                <p class="text-gray-400">Available 24/7 on our website</p>
+                                <p class="text-gray-400">Average response time: 2 minutes</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-discord text-primary-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Discord</h4>
+                                <p class="text-gray-400">Join our community: discord.gg/kexsonhost</p>
+                                <p class="text-gray-400">Get instant help in #support channel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-dark p-8 rounded-xl border border-primary/20">
+                    <h3 class="text-2xl font-bold mb-6 text-primary-light">Send a Message</h3>
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-400 mb-2">Name</label>
+                            <input type="text" id="name" class="w-full bg-darker border border-primary/20 rounded-lg p-3 text-white focus:outline-none focus:border-primary transition-colors duration-300" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-400 mb-2">Email</label>
+                            <input type="email" id="email" class="w-full bg-darker border border-primary/20 rounded-lg p-3 text-white focus:outline-none focus:border-primary transition-colors duration-300" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-400 mb-2">Subject</label>
+                            <select id="subject" class="w-full bg-darker border border-primary/20 rounded-lg p-3 text-white focus:outline-none focus:border-primary transition-colors duration-300" required>
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="support">Support Request</option>
+                                <option value="sales">Sales Inquiry</option>
+                                <option value="billing">Billing Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-400 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full bg-darker border border-primary/20 rounded-lg p-3 text-white focus:outline-none focus:border-primary transition-colors duration-300" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-light text-white font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center">
+                            <span id="submit-text">Send Message</span>
+                            <div id="submit-spinner" class="ml-2 hidden">
+                                <i class="fas fa-circle-notch fa-spin"></i>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker pt-16 pb-8 border-t border-primary/20">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="text-3xl font-bold mb-6">
+                        <span class="text-primary-light">Zen</span><span class="text-white">Cloud</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Premium Minecraft server hosting with high performance, reliability, and 24/7 support.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary-light hover:bg-primary/30 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary-light hover:bg-primary/30 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary-light hover:bg-primary/30 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary-light hover:bg-primary/30 transition-colors duration-300">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Home</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Features</a></li>
+                        <li><a href="#plans" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Plans</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Testimonials</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-primary-light transition-colors duration-300">FAQ</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-white">Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Knowledge Base</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Server Status</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Community</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">Acceptable Use Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary-light transition-colors duration-300">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-primary/10 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 Kexson Host. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 opacity-0 invisible hover:bg-primary-light hover:shadow-xl">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1000);
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuToggle.innerHTML = mobileMenu.classList.contains('hidden') 
+                    ? '<i class="fas fa-bars text-2xl"></i>' 
+                    : '<i class="fas fa-times text-2xl"></i>';
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            menuToggle.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
+                        }
+                    }
+                });
+            });
+
+            // FAQ accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+
+                    // Toggle current FAQ
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+
+                    // Close other FAQs
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question) {
+                            const otherAnswer = otherQuestion.nextElementSibling;
+                            const otherIcon = otherQuestion.querySelector('i');
+
+                            otherAnswer.classList.add('hidden');
+                            otherIcon.classList.remove('rotate-180');
+                        }
+                    });
+                });
+            });
+
+            // Animated counters
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            const animateCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.dataset.target;
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(animateCounters, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                });
+            };
+
+            const counterSection = document.querySelector('.counter-item').parentElement.parentElement;
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(counterSection);
+                }
+            });
+            observer.observe(counterSection);
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Form submission
+            const contactForm = document.getElementById('contact-form');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitText.textContent = 'Sending...';
+                submitSpinner.classList.remove('hidden');
+                
+                // Simulate form submission
+                setTimeout(function() {
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Show success state
+                    submitText.textContent = 'Message Sent!';
+                    submitSpinner.classList.add('hidden');
+                    
+                    // Reset button text after 3 seconds
+                    setTimeout(function() {
+                        submitText.textContent = 'Send Message';
+                    }, 3000);
+                }, 1500);
+            });
+
+            // Plan billing toggle
+            const billingButtons = document.querySelectorAll('.bg-dark button');
+            billingButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    billingButtons.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white');
+                        btn.classList.add('text-gray-400', 'hover:text-white');
+                    });
+                    this.classList.add('bg-primary', 'text-white');
+                    this.classList.remove('text-gray-400', 'hover:text-white');
+                    
+                    // Here you would typically update plan prices based on billing cycle
+                    // For demo purposes, we're just toggling the UI
+                });
+            });
+        });
+    </script>
+</body>
+</html>
